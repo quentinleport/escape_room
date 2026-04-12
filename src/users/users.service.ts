@@ -8,8 +8,16 @@ export class UsersService {
     constructor(
         @InjectModel(User.name) private userModel: Model<UserDocument>
     ) { }
+    
+    async findByEmail(email: string) {
+        return this.userModel.findOne({ email }).exec();
+    }
 
-    async findAll() {
-        return this.userModel.find().exec();
+    async findById(id: string) {
+        return this.userModel.findById(id).exec();
+    }
+
+    async create(email: string, passwordHash: string, displayName: string) {
+        return this.userModel.create({ email, passwordHash, displayName });
     }
 }
